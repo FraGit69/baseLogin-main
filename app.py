@@ -32,7 +32,7 @@ def create_account():
         user = cur.fetchone()
         if user==None:
             cur.execute(f"""INSERT INTO users (email, password)
-                            VALUES ('{email}', '{password}')""")
+                            VALUES ('{email}', '{generate_password_hash(password)}')""")
             conn.commit()
             conn.close()
             return redirect(url_for("login"))
@@ -54,10 +54,10 @@ def validate(username, password):
                     WHERE email LIKE '{username}'""")
     pswd = cur.fetchone()
     print(pswd)
-    if pswd[0] == password:
+    if pswd and check_password_hash(pswd[0], password):
         return redirect(url_for("home"))
-    else:
-        return render_template("login.html")
+    return render_template("login.html")
+    
 
 if __name__ == "__main__":
     app.run(debug=True, host="0.0.0.0", port=4444)

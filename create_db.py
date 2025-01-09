@@ -8,7 +8,7 @@ def main():
                                                      password VARCHAR(30) NOT NULL,
                                                      PRIMARY KEY (id)
                                                     );""")
-    cur.execute("""INSERT INTO users (email, password) VALUES ('admin@test.it', 'admin')""")
+    # cur.execute("""INSERT INTO users (email, password) VALUES ('admin@test.it', 'admin')""")
     conn.commit()
     conn.close()
 
